@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title Customer Loyalti Point Application
+  body
+    form
+      table
+        tbody
+          tr
+            th(colspan='2')
+          tr
+            td User Id
+            td
+              input#txtUserId(type='text', name='param_userId')
+          tr
+            td Password
+            td
+              input#txtPassword(type='password', name='param_userPassword')
+          tr
+            td(colspan='2')
+              input(type='button', value='Login')

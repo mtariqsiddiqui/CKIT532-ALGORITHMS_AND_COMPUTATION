@@ -1,0 +1,150 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Algorithms & Computation Assignment
+    link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
+    link(rel='stylesheet', href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css')
+    script(src='https://code.jquery.com/jquery-3.3.1.js')
+    script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
+    script(src='https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+    script.
+      $(function () {
+      $("#tabs").tabs();
+      $("#i_tabs").tabs();
+      });
+      $(document).ready(function () {
+      $('#all_customers_by_name').DataTable({
+      "ordering": false,
+      "searching": false,
+      "ajax": {
+      "url": "http://localhost:3000/api/sortedCustomersByName",
+      "dataSrc": ""
+      },
+      "columns": [
+      { "data": "name" },
+      { "data": "points" }
+      ]
+      });
+      $('#raw_customers').DataTable({
+      "ajax": {
+      "url": "http://localhost:3000/api/customers",
+      "dataSrc": ""
+      },
+      "columns": [
+      { "data": "name" },
+      { "data": "points" }
+      ]
+      });
+      $('#paltinum_customers').DataTable({
+      "ordering": false,
+      "searching": false,
+      "rowCallback": function (row, data) {
+      if (data.points == 5695) {
+      console.log(data.points);
+      $('td', row).css('background-color', 'golden');
+      }
+      },
+      "ajax": {
+      "url": "http://localhost:3000/api/customers",
+      "dataSrc": ""
+      },
+      "columns": [
+      { "data": "name" },
+      { "data": "points" }
+      ]
+      });
+      });
+    style.
+      .ui-tabs-vertical {
+      width: 100%;
+      }
+      .ui-tabs-vertical .ui-tabs-nav {
+      padding: .2em .1em .2em .2em;
+      float: left;
+      width: 12em;
+      }
+      .ui-tabs-vertical .ui-tabs-nav li {
+      clear: left;
+      width: 100%;
+      border-bottom-width: 1px !important;
+      border-right-width: 0 !important;
+      margin: 0 -1px .2em 0;
+      }
+      .ui-tabs-vertical .ui-tabs-nav li a {
+      display: block;
+      }
+      .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+      padding-bottom: 0;
+      padding-right: .1em;
+      border-right-width: 1px;
+      }
+      .ui-tabs-vertical .ui-tabs-panel {
+      padding: 1em;
+      float: right;
+      width: 40em;
+      }
+  body
+    #tabs
+      ul
+        li
+          a(href='#htabs-1') All Customers
+        li
+          a(href='#htabs-2') Customer by Category
+        li
+          a(href='#htabs-3') Customer Search
+        li
+          a(href='#htabs-4') Raw Data of Customers / JS Native search & sort
+      #htabs-1
+        h2 All Customers Sorted by Name
+        table#all_customers_by_name.display(style='width:100%')
+          thead
+            tr
+              th Customer Name
+              th Loyalty Points
+          tfoot
+            tr
+              th Customer Name
+              th Loyalty Points
+      #htabs-2
+        #i_tabs
+          ul
+            li
+              a(href='#itabs-1') Platinum
+            li
+              a(href='#itabs-2') Gold
+            li
+              a(href='#itabs-3') Silver
+            li
+              a(href='#itabs-4') Average
+          #itabs-1
+            h2 Platinum Customers
+            br
+            table#paltinum_customers.display(style='width:100%')
+              thead
+                tr
+                  th Customer Name
+                  th Loyalty Points
+              tfoot
+                tr
+                  th Customer Name
+                  th Loyalty Points
+          #itabs-2
+            h2 Gold Customers
+          #itabs-3
+            h2 Sulver Customers
+          #itabs-4
+            h2 Average Points
+      #htabs-3
+        p Search by Customers
+      #htabs-4
+        table#raw_customers.display(style='width:100%')
+          thead
+            tr
+              th Customer Name
+              th Loyalty Points
+          tfoot
+            tr
+              th Customer Name
+              th Loyalty Points

@@ -1,0 +1,9 @@
+doctype html
+html
+  head
+    title My Website
+    link(rel='stylesheet', href='/css/style.css')
+  body
+    h1 Loyalty Points Application!
+    p
+      a(href='/login') Click to login
